@@ -25,8 +25,6 @@ public class PerlinNoise : MonoBehaviour {
         meshRenderer.sharedMaterial.mainTexture = GenerateNoise();
     }
 
-
-
     private void UpdateNoise()
     {
         Renderer meshRenderer = GetComponent<Renderer>();
