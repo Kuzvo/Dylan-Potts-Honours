@@ -9,24 +9,23 @@ public class PerlinNoise : MonoBehaviour {
     private int perlinHeight;
 
     [SerializeField]
-    [Range(5, 50)]
+    [Range(1, 10)]
     private float perlinScale;
 
-   /*       -=TODO=-
-    * Make code more my own
-    * implement seed system
-    * understand/find alternate for (float)x/y
-    * research fractal noise, octaves, lacunarity, persistence
-    * 
-    */
+    /*       -=TODO=-
+     * Make code more my own
+     * implement seed system
+     * understand/find alternate for (float)x/y
+     * research fractal noise, octaves, lacunarity, persistence
+     * 
+     */
 
     private void Start() {
         Renderer meshRenderer = GetComponent<Renderer>();
         meshRenderer.sharedMaterial.mainTexture = GenerateNoise();
     }
 
-    private void UpdateNoise()
-    {
+    public void UpdateNoise() {
         Renderer meshRenderer = GetComponent<Renderer>();
         meshRenderer.sharedMaterial.mainTexture = GenerateNoise();
     }
@@ -36,7 +35,7 @@ public class PerlinNoise : MonoBehaviour {
     }
 
 
-    private Texture2D GenerateNoise() {
+    public Texture2D GenerateNoise() {
         Texture2D texture = new(perlinWidth, perlinHeight);
 
         int prng = Random.Range(0, 10000);

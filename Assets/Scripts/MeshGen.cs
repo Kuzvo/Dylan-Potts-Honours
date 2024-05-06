@@ -3,16 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(MeshFilter))]
-public class MeshGen : MonoBehaviour
-{
+public class MeshGen : MonoBehaviour {
     Mesh mesh;
 
     Vector3[] vertices;
     int[] triangles;
 
-    //Vertex count = (xSize + 1) * (zSize + 1)
+    // Vertex count = (xSize + 1) * (zSize + 1)
     public int xSize;
     public int zSize;
+
+    public float perlinScale;
+    public float height;
 
     private void Start() {
         mesh = new Mesh();
@@ -25,12 +27,11 @@ public class MeshGen : MonoBehaviour
     void CreateShape() {
         vertices = new Vector3[(xSize + 1) * (zSize + 1)];
 
-        
         for (int i = 0, z = 0; z <= zSize; z++) {
-
             for (int x = 0; x <= xSize; x++) {
-
-                vertices[i] = new Vector3(x, 0, z);
+                // Apply Perlin noise to adjust the height of each vertex
+                float y = Mathf.PerlinNoise(x * perlinScale, z * perlinScale) * height;
+                vertices[i] = new Vector3(x, y, z);
                 i++;
             }
         }
@@ -42,7 +43,6 @@ public class MeshGen : MonoBehaviour
 
         for (int z = 0; z < zSize; z++) {
             for (int x = 0; x < xSize; x++) {
-
                 triangles[tris + 0] = vert + 0;
                 triangles[tris + 1] = vert + xSize + 1;
                 triangles[tris + 2] = vert + 1;
